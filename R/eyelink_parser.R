@@ -37,7 +37,7 @@ read.asc <- function(fname)
 
     #Read meta-data from the "SAMPLES" line
     info <- getInfo(inp)
-    has.raw <- !is.na(info)
+    has.raw <- !all(is.na(info))
     
     #Just to spite us, there's an inconsistency in how HTARG info is encoded (missing tab)
     #We fix it if necessary
@@ -238,7 +238,7 @@ process.block <- function(blk,info)
 {
     hd <- process.block.header(blk)
     blk <- hd$the.rest
-    if (is.na(info)) #no raw data
+    if (all(is.na(info))) #no raw data
     {
         raw <- NULL
         which.raw <- rep(FALSE,length(blk))
